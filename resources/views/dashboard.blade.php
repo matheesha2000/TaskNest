@@ -14,14 +14,14 @@
     {{-- Stats cards --}}
     <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
         @foreach([
-            ['label' => 'Total Tasks',   'value' => $stats['total'],       'color' => 'indigo'],
-            ['label' => 'Pending',        'value' => $stats['pending'],     'color' => 'yellow'],
-            ['label' => 'In Progress',    'value' => $stats['in_progress'], 'color' => 'blue'],
-            ['label' => 'Completed',      'value' => $stats['completed'],   'color' => 'green'],
+            ['label' => 'Total Tasks',   'value' => $stats['total'],       'textColor' => 'text-indigo-600'],
+            ['label' => 'Pending',        'value' => $stats['pending'],     'textColor' => 'text-yellow-600'],
+            ['label' => 'In Progress',    'value' => $stats['in_progress'], 'textColor' => 'text-blue-600'],
+            ['label' => 'Completed',      'value' => $stats['completed'],   'textColor' => 'text-green-600'],
         ] as $card)
         <div class="bg-white rounded-xl border border-gray-100 p-5 shadow-sm">
             <p class="text-xs font-medium text-gray-500 uppercase tracking-wider">{{ $card['label'] }}</p>
-            <p class="text-3xl font-bold text-{{ $card['color'] }}-600 mt-1">{{ $card['value'] }}</p>
+            <p class="text-3xl font-bold {{ $card['textColor'] }} mt-1">{{ $card['value'] }}</p>
         </div>
         @endforeach
     </div>

@@ -67,12 +67,17 @@
                 </button>
                 <a href="{{ route('tasks.index') }}" class="text-sm text-gray-500 hover:text-gray-700">Cancel</a>
 
-                {{-- Danger zone --}}
-                <form method="POST" action="{{ route('tasks.destroy', $task) }}" class="ml-auto" onsubmit="return confirm('Delete this task?')">
-                    @csrf @method('DELETE')
-                    <button type="submit" class="text-sm text-red-500 hover:text-red-700">Delete task</button>
-                </form>
+                {{-- Danger zone trigger button --}}
+                <button type="submit" form="delete-task-form" class="text-sm text-red-500 hover:text-red-700 ml-auto" onclick="return confirm('Delete this task?')">
+                    Delete task
+                </button>
             </div>
+        </form>
+
+        {{-- Danger zone form (outside the main form to prevent nesting) --}}
+        <form id="delete-task-form" method="POST" action="{{ route('tasks.destroy', $task) }}" class="hidden">
+            @csrf
+            @method('DELETE')
         </form>
     </div>
 </div>

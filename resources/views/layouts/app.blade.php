@@ -95,13 +95,21 @@
 
         {{-- Flash messages --}}
         <div class="px-8 pt-4">
-            @foreach(['success' => 'green', 'warning' => 'yellow', 'error' => 'red'] as $type => $color)
-                @if(session($type))
-                    <div class="mb-4 flex items-center gap-3 bg-{{ $color }}-50 border border-{{ $color }}-200 text-{{ $color }}-800 px-4 py-3 rounded-lg text-sm">
-                        <span>{{ session($type) }}</span>
-                    </div>
-                @endif
-            @endforeach
+            @if(session('success'))
+                <div class="mb-4 flex items-center gap-3 bg-green-50 border border-green-200 text-green-800 px-4 py-3 rounded-lg text-sm">
+                    <span>{{ session('success') }}</span>
+                </div>
+            @endif
+            @if(session('warning'))
+                <div class="mb-4 flex items-center gap-3 bg-yellow-50 border border-yellow-200 text-yellow-800 px-4 py-3 rounded-lg text-sm">
+                    <span>{{ session('warning') }}</span>
+                </div>
+            @endif
+            @if(session('error'))
+                <div class="mb-4 flex items-center gap-3 bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-lg text-sm">
+                    <span>{{ session('error') }}</span>
+                </div>
+            @endif
         </div>
 
         {{-- Page content --}}

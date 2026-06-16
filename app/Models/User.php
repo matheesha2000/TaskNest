@@ -2,47 +2,76 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
-     */
     protected $fillable = [
         'name',
         'email',
         'password',
+        'role',
+        'subscription_id',
+        'subscription_expires_at',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var list<string>
-     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
     protected function casts(): array
     {
         return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
+            'email_verified_at'      => 'datetime',
+            'subscription_expires_at' => 'datetime',
+            'password'               => 'hashed',
         ];
+    }
+
+    // ── Relationships ──────────────────────────────────────────────
+    public function tasks()
+    {
+        return $this->hasMany(Task::class);
+    }
+
+    public function subscription()
+    {
+        return $this->belongsTo(Subscription::class);
+    }
+
+    public function payments()
+    {
+        return $this->hasMany(Payment::class);
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
+
+    // ── Helper Methods ─────────────────────────────────────────────
+    public function isAdmin(): bool
+    {
+        return $this->role === 'admin';
+    }
+
+    public function isPro(): bool
+    {
+        return $this->subscription
+            && $this->subscription->name === 'Pro'
+            && $this->subscription_expires_at
+            && $this->subscription_expires_at->isFuture();
+    }
+
+    public function hasReachedTaskLimit(): bool
+    {
+        // Free plan: max 10 tasks. Pro plan: unlimited.
+        if ($this->isPro()) return false;
+        return $this->tasks()->count() >= 10;
     }
 }

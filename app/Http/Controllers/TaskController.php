@@ -5,20 +5,16 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreTaskRequest;
 use App\Models\Task;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     /**
      * List tasks — with optional search/filter (Pro users only)
      */
     public function index(Request $request)
     {
-        $user  = auth()->user();
+        $user  = Auth::user();
         $query = $user->tasks()->latest();
 
         // Pro-only: search & filters
@@ -29,12 +25,15 @@ class TaskController extends Controller
                       ->orWhere('description', 'like', '%' . $request->search . '%');
                 });
             }
+
             if ($request->filled('status')) {
                 $query->where('status', $request->status);
             }
+
             if ($request->filled('priority')) {
                 $query->where('priority', $request->priority);
             }
+
             if ($request->filled('category')) {
                 $query->where('category', $request->category);
             }
@@ -42,7 +41,6 @@ class TaskController extends Controller
 
         $tasks = $query->paginate(10);
 
-        // Stats for dashboard widget
         $stats = [
             'total'       => $user->tasks()->count(),
             'pending'     => $user->tasks()->pending()->count(),
@@ -59,31 +57,30 @@ class TaskController extends Controller
      */
     public function create()
     {
-        $user = auth()->user();
+        $user = Auth::user();
 
         if ($user->hasReachedTaskLimit()) {
             return redirect()->route('tasks.index')
-                ->with('warning', 'Free plan limit reached (10 tasks). Upgrade to Pro for unlimited tasks.');
+                ->with('warning', 'Free plan limit reached. Upgrade to Pro for more tasks.');
         }
 
         return view('tasks.create');
     }
 
     /**
-     * Store a new task
+     * Store task
      */
     public function store(StoreTaskRequest $request)
     {
-        $user = auth()->user();
+        $user = Auth::user();
 
         if ($user->hasReachedTaskLimit()) {
             return redirect()->route('subscription.index')
-                ->with('warning', 'Task limit reached. Upgrade to Pro for unlimited tasks.');
+                ->with('warning', 'Upgrade to Pro for unlimited tasks.');
         }
 
         $data = $request->validated();
 
-        // Free users: strip pro-only fields
         if (!$user->isPro()) {
             $data['priority'] = 'medium';
             $data['category'] = null;
@@ -96,7 +93,7 @@ class TaskController extends Controller
     }
 
     /**
-     * Show a single task
+     * Show task
      */
     public function show(Task $task)
     {
@@ -105,7 +102,7 @@ class TaskController extends Controller
     }
 
     /**
-     * Show edit form
+     * Edit task
      */
     public function edit(Task $task)
     {
@@ -122,7 +119,7 @@ class TaskController extends Controller
 
         $data = $request->validated();
 
-        if (!auth()->user()->isPro()) {
+        if (!Auth::user()->isPro()) {
             $data['priority'] = 'medium';
             $data['category'] = null;
         }
@@ -139,6 +136,7 @@ class TaskController extends Controller
     public function destroy(Task $task)
     {
         $this->authorize('delete', $task);
+
         $task->delete();
 
         return redirect()->route('tasks.index')
@@ -146,7 +144,7 @@ class TaskController extends Controller
     }
 
     /**
-     * Quick status update via AJAX or form post
+     * Update status
      */
     public function updateStatus(Request $request, Task $task)
     {
@@ -156,7 +154,9 @@ class TaskController extends Controller
             'status' => 'required|in:pending,in_progress,completed',
         ]);
 
-        $task->update(['status' => $request->status]);
+        $task->update([
+            'status' => $request->status
+        ]);
 
         return back()->with('success', 'Status updated.');
     }

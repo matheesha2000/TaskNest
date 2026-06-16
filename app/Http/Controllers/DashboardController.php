@@ -2,16 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 class DashboardController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     public function index()
     {
-        $user = auth()->user();
+        $user = Auth::user();
 
         $stats = [
             'total'       => $user->tasks()->count(),
@@ -20,7 +18,10 @@ class DashboardController extends Controller
             'completed'   => $user->tasks()->completed()->count(),
         ];
 
-        $recentTasks = $user->tasks()->latest()->take(5)->get();
+        $recentTasks = $user->tasks()
+            ->latest()
+            ->take(5)
+            ->get();
 
         $overdueTasks = $user->isPro()
             ? $user->tasks()->overdue()->get()

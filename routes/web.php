@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 // ── Public ─────────────────────────────────────────────────────────────────
 Route::get('/', function () {
-    return redirect()->route('dashboard');
+    return view('welcome');
 });
 
 // ── Stripe Webhook (no CSRF — excluded in bootstrap/app.php) ───────────────

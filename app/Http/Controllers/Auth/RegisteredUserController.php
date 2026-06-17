@@ -36,10 +36,20 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
+        $freePlan = \App\Models\Subscription::firstOrCreate(
+            ['name' => 'Free'],
+            [
+                'price' => 0.00,
+                'duration' => 30,
+                'features' => ['Up to 10 tasks', 'Basic Task Management', 'Standard Support'],
+            ]
+        );
+
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'subscription_id' => $freePlan->id,
         ]);
 
         event(new Registered($user));

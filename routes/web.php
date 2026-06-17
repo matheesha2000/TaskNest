@@ -44,7 +44,7 @@ Route::middleware('auth')->group(function () {
 
     // Subscription
     Route::get('/subscription',           [SubscriptionController::class, 'index'])->name('subscription.index');
-    Route::post('/subscription/checkout', [SubscriptionController::class, 'checkout'])->name('subscription.checkout');
+    Route::post('/subscription/checkout/{subscription}', [SubscriptionController::class, 'checkout'])->name('subscription.checkout');
     Route::get('/subscription/success',   [SubscriptionController::class, 'success'])->name('subscription.success');
 
     // Payment history

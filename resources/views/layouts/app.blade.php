@@ -13,7 +13,7 @@
     <aside class="w-64 bg-white border-r border-gray-200 flex flex-col min-h-screen fixed top-0 left-0 z-30">
         {{-- Logo --}}
         <div class="h-16 flex items-center px-6 border-b border-gray-100">
-            <span class="text-xl font-bold text-indigo-600">TaskFlow</span>
+            <span class="text-xl font-bold text-indigo-600">TaskNest</span>
             @if(auth()->user()->isPro())
                 <span class="ml-2 text-xs font-semibold bg-indigo-100 text-indigo-700 px-2 py-0.5 rounded-full">PRO</span>
             @endif

@@ -69,7 +69,7 @@
 
                 {{-- Danger zone trigger button --}}
                 <button type="submit" form="delete-task-form" class="text-sm text-red-500 hover:text-red-700 ml-auto" onclick="return confirm('Delete this task?')">
-                    Delete task
+                    Delete 
                 </button>
             </div>
         </form>

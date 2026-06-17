@@ -1,3 +1,83 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Inter:wght@300;400;500;600;700;800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    body {
+        font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+        background-color: #F8FAFC;
+        color: #0F172A;
+        -webkit-font-smoothing: antialiased;
+        overflow-x: hidden;
+    }
+}
+
+/* Base Glassmorphism utility rules */
+.glass-card {
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(15, 23, 42, 0.06);
+    box-shadow: 0 8px 32px 0 rgba(148, 163, 184, 0.08);
+}
+
+.glass-card-hover {
+    transition: all 0.2s ease-in-out;
+}
+
+.glass-card-hover:hover {
+    border-color: rgba(99, 102, 241, 0.3);
+    box-shadow: 0 8px 32px 0 rgba(99, 102, 241, 0.08);
+    transform: translateY(-2px);
+}
+
+/* Glass table overrides */
+.glass-table {
+    border-collapse: separate;
+    border-spacing: 0;
+}
+.glass-table th {
+    background: rgba(15, 23, 42, 0.02);
+    color: #475569;
+    font-weight: 600;
+}
+.glass-table td {
+    background: transparent;
+    border-bottom: 1px solid rgba(15, 23, 42, 0.05);
+}
+.glass-table tr:last-child td {
+    border-bottom: none;
+}
+
+/* Custom form inputs styling for light theme */
+.dark-input {
+    background-color: rgba(255, 255, 255, 0.9) !important;
+    border: 1px solid rgba(15, 23, 42, 0.12) !important;
+    color: #0F172A !important;
+    transition: all 0.2s ease;
+}
+.dark-input:focus {
+    border-color: #6366F1 !important;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15) !important;
+    outline: none !important;
+}
+
+/* Animations */
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+}
+.animate-float {
+    animation: float 4s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+    0%, 100% { opacity: 0.2; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(1.05); }
+}
+.animate-glow {
+    animation: pulse-glow 3s infinite;
+}
+

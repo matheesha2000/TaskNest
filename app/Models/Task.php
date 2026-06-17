@@ -105,20 +105,20 @@ class Task extends Model
     public function statusBadgeClass(): string
     {
         return match ($this->status) {
-            'pending'     => 'bg-yellow-100 text-yellow-800',
-            'in_progress' => 'bg-blue-100 text-blue-800',
-            'completed'   => 'bg-green-100 text-green-800',
-            default       => 'bg-gray-100 text-gray-800',
+            'pending'     => 'bg-amber-50 text-amber-700 border border-amber-200/60',
+            'in_progress' => 'bg-blue-50 text-blue-700 border border-blue-200/60',
+            'completed'   => 'bg-emerald-50 text-emerald-700 border border-emerald-200/60',
+            default       => 'bg-slate-50 text-slate-600 border border-slate-200/60',
         };
     }
 
     public function priorityBadgeClass(): string
     {
         return match ($this->priority) {
-            'high'   => 'bg-red-100 text-red-800',
-            'medium' => 'bg-orange-100 text-orange-800',
-            'low'    => 'bg-gray-100 text-gray-600',
-            default  => 'bg-gray-100 text-gray-600',
+            'high'   => 'bg-rose-50 text-rose-700 border border-rose-200/60',
+            'medium' => 'bg-orange-50 text-orange-700 border border-orange-200/60',
+            'low'    => 'bg-slate-50 text-slate-600 border border-slate-200/60',
+            default  => 'bg-slate-50 text-slate-600 border border-slate-200/60',
         };
     }
 }

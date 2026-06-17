@@ -14,16 +14,21 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="font-sans text-gray-900 antialiased bg-gray-50">
-        <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0">
-            <div class="mb-4">
+    <body class="font-sans text-slate-700 antialiased bg-dark-bg">
+        <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 relative overflow-hidden px-4">
+            
+            {{-- Background decorative mesh --}}
+            <div class="absolute top-[-20%] left-[-20%] w-[60%] h-[60%] bg-indigo-500/8 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute bottom-[-20%] right-[-20%] w-[60%] h-[60%] bg-purple-500/8 rounded-full blur-3xl pointer-events-none"></div>
+
+            <div class="mb-4 relative z-10 animate-float">
                 <a href="/" class="flex items-center gap-2.5 focus:outline-none">
-                    <span class="w-10 h-10 rounded-2xl bg-indigo-600 flex items-center justify-center text-white font-extrabold text-lg shadow-md shadow-indigo-200">T</span>
-                    <span class="text-2xl font-extrabold tracking-tight text-gray-900">Task<span class="text-indigo-600">Nest</span></span>
+                    <span class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-indigo-500 to-violet-500 flex items-center justify-center text-white font-extrabold text-lg shadow-md shadow-indigo-500/20">T</span>
+                    <span class="text-2xl font-extrabold tracking-tight text-slate-800">Task<span class="bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent">Nest</span></span>
                 </a>
             </div>
 
-            <div class="w-full sm:max-w-md mt-4 px-8 py-8 bg-white border border-gray-150 shadow-sm overflow-hidden sm:rounded-2xl">
+            <div class="w-full sm:max-w-md mt-4 px-8 py-8 bg-white/85 border border-slate-200/80 shadow-xl shadow-slate-200/40 backdrop-blur-xl sm:rounded-2xl relative z-10">
                 {{ $slot }}
             </div>
         </div>

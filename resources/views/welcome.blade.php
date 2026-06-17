@@ -10,19 +10,19 @@
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
         :root {
-            --ink:      #0F1117;
-            --ink-soft: #4B5162;
-            --ink-mute: #9299AD;
-            --surface:  #F7F8FA;
+            --ink:      #0F172A;
+            --ink-soft: #475569;
+            --ink-mute: #64748B;
+            --surface:  #F8FAFC;
             --white:    #FFFFFF;
-            --accent:   #5B5FEF;
-            --accent-lt:#EDEDFF;
-            --accent-dk:#3F43C7;
-            --pro:      #7C3AED;
-            --pro-lt:   #F3EEFF;
-            --green:    #059669;
-            --border:   #E4E6EE;
-            --radius:   12px;
+            --accent:   #6366F1;
+            --accent-lt:rgba(99, 102, 241, 0.07);
+            --accent-dk:#4F46E5;
+            --pro:      #8B5CF6;
+            --pro-lt:   rgba(139, 92, 246, 0.07);
+            --green:    #10B981;
+            --border:   rgba(15, 23, 42, 0.08);
+            --radius:   16px;
         }
 
         body {
@@ -38,7 +38,7 @@
             position: sticky; top: 0; z-index: 50;
             display: flex; align-items: center; justify-content: space-between;
             padding: 0 40px; height: 64px;
-            background: rgba(255,255,255,0.88);
+            background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(12px);
             border-bottom: 1px solid var(--border);
         }
@@ -87,7 +87,7 @@
             transform: rotate(-5deg) scale(1.15);
         }
         .hero-grid-card {
-            background: var(--ink);
+            background: rgba(15, 23, 42, 0.04);
             border-radius: 8px; height: 52px;
             animation: floatCard 6s ease-in-out infinite;
         }
@@ -369,7 +369,7 @@
             display: inline-flex; align-items: center; gap: 8px;
             padding: 14px 32px; border-radius: 10px;
             font-size: 15px; font-weight: 600;
-            background: var(--white); color: var(--ink);
+            background: #FFFFFF; color: #05070F;
             text-decoration: none; position: relative;
             transition: all 0.15s;
             box-shadow: 0 4px 20px rgba(0,0,0,0.3);

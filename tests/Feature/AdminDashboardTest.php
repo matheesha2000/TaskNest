@@ -18,3 +18,11 @@ test('admin users can access the admin dashboard', function () {
     $response->assertStatus(200);
     $response->assertViewIs('admin.dashboard');
 });
+
+test('admin users automatically have pro status and bypass task limits', function () {
+    $admin = User::factory()->create(['role' => 'admin']);
+
+    expect($admin->isPro())->toBeTrue();
+    expect($admin->hasReachedTaskLimit())->toBeFalse();
+});
+

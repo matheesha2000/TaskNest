@@ -83,10 +83,14 @@ class User extends Authenticatable
     }
 
     /**
-     * Check if user has an active Pro subscription.
+     * Check if user has an active Pro subscription or is an admin.
      */
     public function isPro(): bool
     {
+        if ($this->isAdmin()) {
+            return true;
+        }
+
         return $this->subscription
             && $this->subscription->name === 'Pro'
             && $this->subscription_expires_at

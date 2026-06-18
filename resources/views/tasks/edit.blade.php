@@ -2,7 +2,7 @@
 @section('title', 'Edit Task')
 
 @section('content')
-<div class="max-w-2xl">
+<div class="max-w-2xl mx-auto">
     <div class="glass-card rounded-2xl border border-slate-200/60 shadow-sm p-6">
         <form method="POST" action="{{ route('tasks.update', $task) }}" class="space-y-6">
             @csrf

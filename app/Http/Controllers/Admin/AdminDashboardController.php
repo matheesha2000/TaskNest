@@ -26,10 +26,10 @@ class AdminDashboardController extends Controller
             'pro_users'        => User::whereHas('subscription', fn ($q) => $q->where('price', '>', 0))->count(),
             'free_users'       => User::whereHas('subscription', fn ($q) => $q->where('price', 0))
                                       ->orWhereNull('subscription_id')->count(),
-            'total_revenue'    => Payment::where('payment_status', 'paid')->sum('amount'),
-            'revenue_week'     => Payment::where('payment_status', 'paid')
+            'total_revenue'    => Payment::where('payment_status', 'completed')->sum('amount'),
+            'revenue_week'     => Payment::where('payment_status', 'completed')
                                          ->where('paid_at', '>=', now()->subDays(7))->sum('amount'),
-            'total_payments'   => Payment::where('payment_status', 'paid')->count(),
+            'total_payments'   => Payment::where('payment_status', 'completed')->count(),
             'avg_rating'       => round(Review::avg('rating') ?? 0, 1),
             'total_reviews'    => Review::count(),
         ];
@@ -39,7 +39,7 @@ class AdminDashboardController extends Controller
             $date = now()->subMonths($monthsAgo);
             return [
                 'month'   => $date->format('M'),
-                'revenue' => Payment::where('payment_status', 'paid')
+                'revenue' => Payment::where('payment_status', 'completed')
                     ->whereYear('paid_at', $date->year)
                     ->whereMonth('paid_at', $date->month)
                     ->sum('amount'),

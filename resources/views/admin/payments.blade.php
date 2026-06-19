@@ -35,9 +35,9 @@
 
             <select name="status" class="text-sm border border-slate-200 rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand-500">
                 <option value="">All Statuses</option>
-                <option value="paid"    {{ request('status') === 'paid'    ? 'selected' : '' }}>Paid</option>
-                <option value="pending" {{ request('status') === 'pending' ? 'selected' : '' }}>Pending</option>
-                <option value="failed"  {{ request('status') === 'failed'  ? 'selected' : '' }}>Failed</option>
+                <option value="completed" {{ request('status') === 'completed' ? 'selected' : '' }}>Completed / Paid</option>
+                <option value="pending"   {{ request('status') === 'pending'   ? 'selected' : '' }}>Pending</option>
+                <option value="failed"    {{ request('status') === 'failed'    ? 'selected' : '' }}>Failed</option>
             </select>
 
             <button type="submit" class="px-4 py-2 bg-brand-600 text-white rounded-xl text-sm font-medium hover:bg-brand-700 transition-colors">
@@ -97,9 +97,9 @@
                         <td class="px-5 py-4">
                             @php
                                 $badge = match($payment->payment_status) {
-                                    'paid'    => 'bg-green-100 text-green-700',
-                                    'pending' => 'bg-amber-100 text-amber-700',
-                                    default   => 'bg-red-100 text-red-700',
+                                    'completed', 'paid' => 'bg-green-100 text-green-700',
+                                    'pending'           => 'bg-amber-100 text-amber-700',
+                                    default             => 'bg-red-100 text-red-700',
                                 };
                             @endphp
                             <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $badge }}">

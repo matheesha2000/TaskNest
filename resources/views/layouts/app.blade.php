@@ -64,22 +64,25 @@
         </nav>
 
         {{-- User info + logout --}}
-        <div class="px-4 py-4 border-t border-slate-100">
-            <div class="flex items-center gap-3 mb-3">
-                <div class="w-8 h-8 rounded-full bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600 font-semibold text-sm">
+        <div class="border-t border-slate-100 p-4">
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-full bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600 font-semibold text-sm flex-shrink-0">
                     {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
                 </div>
                 <div class="flex-1 min-w-0">
-                    <p class="text-sm font-medium text-slate-800 truncate">{{ auth()->user()->name }}</p>
-                    <p class="text-xs text-slate-500 truncate">{{ auth()->user()->email }}</p>
+                    <p class="text-sm font-medium text-slate-800 truncate block leading-tight">{{ auth()->user()->name }}</p>
+                    <p class="text-xs text-slate-400 truncate block mt-0.5">{{ auth()->user()->email }}</p>
                 </div>
+                <form method="POST" action="{{ route('logout') }}" class="flex items-center">
+                    @csrf
+                    <button type="submit" title="Logout"
+                            class="text-slate-400 hover:text-red-600 transition-colors cursor-pointer p-1 rounded-lg hover:bg-slate-50">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+                        </svg>
+                    </button>
+                </form>
             </div>
-            <form method="POST" action="{{ route('logout') }}">
-                @csrf
-                <button type="submit" class="w-full text-left text-sm text-slate-600 hover:text-red-600 px-3 py-1.5 rounded-lg hover:bg-red-50 transition-colors">
-                    Sign out
-                </button>
-            </form>
         </div>
     </aside>
 

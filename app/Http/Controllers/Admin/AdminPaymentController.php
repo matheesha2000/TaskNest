@@ -28,8 +28,8 @@ class AdminPaymentController extends Controller
         $payments = $query->latest('paid_at')->paginate(15)->withQueryString();
 
         $summary = [
-            'total'   => Payment::where('payment_status', 'paid')->sum('amount'),
-            'count'   => Payment::where('payment_status', 'paid')->count(),
+            'total'   => Payment::where('payment_status', 'completed')->sum('amount'),
+            'count'   => Payment::where('payment_status', 'completed')->count(),
             'pending' => Payment::where('payment_status', 'pending')->count(),
         ];
 

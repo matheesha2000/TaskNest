@@ -10,6 +10,9 @@ test('profile page is displayed', function () {
         ->get('/profile');
 
     $response->assertOk();
+    $response->assertSee('Confirm Deletion');
+    $response->assertSee('Confirm Password');
+    $response->assertDontSee('confirm-user-deletion');
 });
 
 test('profile information can be updated', function () {

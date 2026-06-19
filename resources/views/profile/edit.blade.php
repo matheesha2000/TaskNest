@@ -24,7 +24,7 @@
             </div>
 
             {{-- Delete Account --}}
-            <div class="p-6 sm:p-8 glass-card shadow-xl rounded-2xl border border-slate-200/60">
+            <div class="p-6 sm:p-8 glass-card shadow-xl rounded-2xl border border-rose-200/40 bg-rose-50/5">
                 <div class="max-w-xl">
                     @include('profile.partials.delete-user-form')
                 </div>

@@ -6,9 +6,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\SubscriptionController;
-use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ReviewController;
-use App\Http\Controllers\StripeWebhookController;
 
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\AdminUserController;
@@ -32,7 +30,7 @@ Route::get('/', function () {
 |--------------------------------------------------------------------------
 */
 
-Route::post('/stripe/webhook', [StripeWebhookController::class, 'handle'])
+Route::post('/stripe/webhook', [SubscriptionController::class, 'webhook'])
     ->name('stripe.webhook');
 
 /*
@@ -105,7 +103,7 @@ Route::middleware(['auth'])->group(function () {
     | Payment History
     |--------------------------------------------------------------------------
     */
-    Route::get('/payments', [PaymentController::class, 'index'])
+    Route::get('/payments', [SubscriptionController::class, 'history'])
         ->name('payment.history');
 
     /*

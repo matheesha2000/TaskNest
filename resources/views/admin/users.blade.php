@@ -82,7 +82,7 @@
                         <td class="px-5 py-4">
                             <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium
                                 {{ $user->isPro() ? 'bg-brand-100 text-brand-700' : 'bg-slate-100 text-slate-500' }}">
-                                {{ $user->isPro() ? '⭐ '.$user->subscription->name : 'Free' }}
+                                {{ $user->isAdmin() ? '⭐ Admin' : ($user->isPro() ? '⭐ '.($user->subscription->name ?? 'Pro') : 'Free') }}
                             </span>
                         </td>
 

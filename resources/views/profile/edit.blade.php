@@ -67,7 +67,9 @@
                         @if($isPro)
                             <div class="flex justify-between text-sm">
                                 <span class="text-slate-500">Expires At</span>
-                                <span class="font-semibold text-slate-800">{{ $user->subscription_expires_at->format('M d, Y') }}</span>
+                                <span class="font-semibold text-slate-800">
+                                    {{ $user->subscription_expires_at ? $user->subscription_expires_at->format('M d, Y') : 'Lifetime / No expiration' }}
+                                </span>
                             </div>
                         @else
                             <div class="flex justify-between text-sm">

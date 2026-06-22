@@ -86,3 +86,24 @@ test('correct password must be provided to delete account', function () {
 
     $this->assertNotNull($user->fresh());
 });
+
+test('profile page is displayed for admin user with null subscription expiry date', function () {
+    $subscription = \App\Models\Subscription::factory()->create([
+        'name' => 'Free',
+        'price' => 0.00,
+    ]);
+
+    // Admin has isPro() = true, but subscription_expires_at can be null
+    $admin = User::factory()->create([
+        'role' => 'admin',
+        'subscription_id' => $subscription->id,
+        'subscription_expires_at' => null,
+    ]);
+
+    $response = $this
+        ->actingAs($admin)
+        ->get('/profile');
+
+    $response->assertOk();
+    $response->assertSee('Lifetime / No expiration');
+});
